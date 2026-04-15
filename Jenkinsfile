@@ -18,29 +18,29 @@ pipeline {
         }
 
         stage('Install & Unit Test') {
-    steps {
-        sh '''
-            python3 -m venv venv
-            . venv/bin/activate
+	    steps {
+        	sh '''
+            	python3 -m venv venv
+            	. venv/bin/activate
 
-            pip install --upgrade pip
-            pip install -r requirements.txt
+            	pip install --upgrade pip
+            	pip install -r requirements.txt
 
-            pytest tests/ -v \
-                --tb=short \
-                --junitxml=test-results.xml \
-                --cov=backend \
-                --cov-report=xml:coverage.xml \
-                --cov-report=term-missing
-        '''
-    }
+            	pytest tests/ -v \
+                	--tb=short \
+                	--junitxml=test-results.xml \
+                	--cov=backend \
+                	--cov-report=xml:coverage.xml \
+                	--cov-report=term-missing
+        	'''
+    		}
 
     post {
         always {
             junit 'test-results.xml'
         }
     }
-
+}
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
