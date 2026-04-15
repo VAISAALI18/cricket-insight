@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cricket-insight
+  namespace: cricket-insight
+  labels:
+    app: cricket-insight
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cricket-insight
+  template:
+    metadata:
+      labels:
+        app: cricket-insight
+    spec:
+      containers:
+        - name: cricket-insight
+          image: vaisaali18/cricket-insight:latest   # Jenkins updates this tag
+          ports:
+            - containerPort: 5000
+          env:
+            - name: RAPIDAPI_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cricket-insight-secrets
+                  key: rapidapi-key
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 20
+            periodSeconds: 15
