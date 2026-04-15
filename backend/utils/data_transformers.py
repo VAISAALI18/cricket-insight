@@ -97,3 +97,10 @@ def extract_commentary(comm_data: dict, limit: int = 14) -> list:
                     "text": text,
                 })
     return items
+def format_date(date_str):
+    """Format date string (basic placeholder)"""
+    return str(date_str)
+
+def format_dismissal(dismissal):
+    """Format dismissal info (basic placeholder)"""
+    return str(dismissal)
