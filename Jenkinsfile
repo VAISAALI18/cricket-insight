@@ -6,6 +6,7 @@ pipeline {
         IMAGE_TAG     = "${env.BUILD_NUMBER}"
         SONAR_PROJECT = "cricket-insight"
         REGISTRY      = "docker.io"
+	SONAR_SCANNER_HOME = tool 'SonarScanner'
     }
 
     stages {
@@ -44,14 +45,14 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('My Sonar Server') {
-                    sh '''
-                        sonar-scanner \
-                          -Dsonar.projectKey=${SONAR_PROJECT} \
-                          -Dsonar.sources=. \
-                          -Dsonar.exclusions=**/tests/**,**/__pycache__/**,**/frontend/** \
-                          -Dsonar.python.coverage.reportPaths=coverage.xml \
-                          -Dsonar.python.xunit.reportPath=test-results.xml
-                    '''
+                   sh """
+    			${SONAR_SCANNER_HOME}/bin/sonar-scanner \
+    			-Dsonar.projectKey=${SONAR_PROJECT} \
+    			-Dsonar.sources=. \
+    			-Dsonar.exclusions=**/tests/**,**/__pycache__/**,**/frontend/** \
+    			-Dsonar.python.coverage.reportPaths=coverage.xml \
+    			-Dsonar.python.xunit.reportPath=test-results.xml
+		   """  
                 }
             }
         }
