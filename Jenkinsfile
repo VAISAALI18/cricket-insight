@@ -74,12 +74,6 @@ pipeline {
         stage('Trivy Security Scan') {
             steps {
                 sh '''
-                    # Install trivy if not present
-                    if ! command -v trivy &> /dev/null; then
-                        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
-                    fi
-
-                    # Scan image — fail on CRITICAL vulnerabilities
                     trivy image \
                         --exit-code 1 \
                         --severity CRITICAL \
