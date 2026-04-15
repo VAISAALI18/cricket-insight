@@ -1,0 +1,81 @@
+/* ═══════════════════════════════════════════════════════
+   css/base.css  —  Variables, reset, typography
+═══════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+:root {
+  /* ── Team colour slots (overridden by JS) ── */
+  --t1-a:    #F9CD05;
+  --t1-b:    #0A2FA0;
+  --t1-grad: linear-gradient(135deg, #0A2FA0 0%, #1a4fcf 50%, #F9CD05 100%);
+  --t1-glow: rgba(249, 205, 5, 0.30);
+
+  --t2-a:    #EC1C24;
+  --t2-b:    #1A1A1A;
+  --t2-grad: linear-gradient(135deg, #1A1A1A 0%, #3a0000 50%, #EC1C24 100%);
+  --t2-glow: rgba(236, 28, 36, 0.30);
+
+  /* ── Base palette ── */
+  --bg:       #07080c;
+  --surface:  #0d0f18;
+  --card:     #11141f;
+  --card2:    #161923;
+  --border:   rgba(255,255,255,0.065);
+  --muted:    #464a5c;
+  --text:     #dde1ef;
+  --gold:     #c8a951;
+  --green:    #4edd8a;
+  --red:      #f05050;
+
+  /* ── Typography ── */
+  --ff-head: 'Anton', sans-serif;
+  --ff-body: 'Barlow Condensed', sans-serif;
+  --ff-mono: 'IBM Plex Mono', monospace;
+
+  /* ── Spacing ── */
+  --r:   10px;
+  --r2:  16px;
+  --gap: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 15px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ff-body);
+  font-weight: 400;
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Background ambient glow ── */
+#bg-glow {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 45% at 10% 15%, var(--t1-glow) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 90% 85%, var(--t2-glow) 0%, transparent 65%);
+  transition: background 1s ease;
+}
+
+/* ── Grain overlay ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.6;
+}
+
+#root { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+
+/* ── Utility ── */
+.hidden { display: none !important; }
