@@ -111,7 +111,7 @@ pipeline {
                         git commit -m "ci: update image tag to ${IMAGE_TAG} [skip ci]"
                 """
                 withCredentials([usernamePassword(
-                    credentialsId: 'github-credentials',
+                    credentialsId: 'github-creds',
                     usernameVariable: 'GH_USER',
                     passwordVariable: 'GH_PASS'
                 )]) {
