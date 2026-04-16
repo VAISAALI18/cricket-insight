@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: cricket-insight
-          image: vaisaali18/cricket-insight:latest   # Jenkins updates this tag
+          image: vaisaali18/cricket-insight:17
           ports:
             - containerPort: 5000
           env:
