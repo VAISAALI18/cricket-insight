@@ -14,6 +14,7 @@ RUN pip install --no-cache-dir --upgrade pip \
 COPY . .
 
 # Run unit tests — build FAILS if tests fail
+ENV ENABLE_METRICS=false
 RUN pytest tests/ -v --tb=short
 
 # ──────────────────────────────────────────────

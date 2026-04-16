@@ -6,6 +6,7 @@ from flask import Flask, send_from_directory
 from flask_cors import CORS
 from backend.routes import match_bp
 import os
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(
     __name__,
@@ -13,6 +14,9 @@ app = Flask(
     static_url_path="",
 )
 CORS(app)
+
+if os.getenv("ENABLE_METRICS", "true") == "true":
+    metrics = PrometheusMetrics(app)
 
 # Register API blueprint
 app.register_blueprint(match_bp)

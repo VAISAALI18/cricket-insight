@@ -17,7 +17,11 @@ spec:
     spec:
       containers:
         - name: cricket-insight
+<<<<<<< HEAD
           image: vaisaali18/cricket-insight:21
+=======
+          image: vaisaali18/cricket-insight:22   # Jenkins updates this tag
+>>>>>>> 3ae748e (Added Prometheus metrics support)
           ports:
             - containerPort: 5000
           env:
