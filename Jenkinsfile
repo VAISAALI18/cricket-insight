@@ -102,7 +102,9 @@ pipeline {
         stage('Update K8s Manifests') {
             steps {
                 sh """
-                    sed -i 's|image: ${IMAGE_NAME}:.*|image: ${IMAGE_NAME}:${IMAGE_TAG}|' \
+        	    git checkout main || git checkout -b main
+            	    git pull origin main        
+		    sed -i 's|image: ${IMAGE_NAME}:.*|image: ${IMAGE_NAME}:${IMAGE_TAG}|' \
                         manifests/deployment.yaml
                     git config user.email "jenkins@cricket-insight.local"
                     git config user.name "Jenkins"
